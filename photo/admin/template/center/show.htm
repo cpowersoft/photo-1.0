@@ -1,0 +1,284 @@
+<!--
+<?php
+print <<<EOT
+--> 
+<table width='100%' cellspacing='1' cellpadding='3' class="tablewidth">
+  <form name="form1" method="post" action="$admin_path&action=config">
+    <tr class="head"> 
+      <td colspan='2'> 
+        <div align='center'>页面显示设置(对某些风格设置无效)</div>
+      </td>
+    </tr>
+    
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>列表页的标题后面是否显示(图片/置顶/最新/推荐/热门)之类的小图标</td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input type="radio" name="webdbs[ListShowIcon]" value="1" $ListShowIcon[1]>
+        显示 
+        <input type="radio" name="webdbs[ListShowIcon]" value="0" $ListShowIcon[0]>
+        不显示 </td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>列表页最近几小时内发表的内容归为最新,即有图标显示:</td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input type="text" name="webdbs[newArticleTime]" value="$webdb[newArticleTime]" size="3">
+        小时</td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>浏览多少次以上的内容归为热门,即有图标显示:</td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input type="text" name="webdbs[hotArticleNum]" value="$webdb[hotArticleNum]" size="3">
+        次</td>
+    </tr>
+    
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>列表页,最终页的栏目显示样式<span help=1><br>
+        模板存放在此目录/template/default/side_sort/<br>
+        你可以参考现有的模板做更多的样式模板放在此目录即可.<br>
+        或者你可以到官方站下载更多的资源,<a href="http://www.qibosoft.com/downdata.php?job=side_sort" target="_blank"><font color="#FF0000">下载</font></a></span></td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input type="hidden" name="webdbs[SideSortStyle]" id="List_S_ShowType" value="$webdb[SideSortStyle]">
+        $get_S_LabelTpl 
+        <SCRIPT LANGUAGE="JavaScript">
+<!--
+var upfile_S_PicNumId=0;
+
+function show_S_MorePic(todo){
+	if(todo==1){
+		upfile_S_PicNumId++;
+	}else if(todo==-1){
+		upfile_S_PicNumId--;
+	}
+	if(upfile_S_PicNumId<0){
+		alert("已经是第一个了!");
+		upfile_S_PicNumId=0;
+	}
+	if( upfile_S_PicNumId>(Img_S_Links.length-1) ){
+		alert("已经是最后一个了!");
+		upfile_S_PicNumId=Img_S_Links.length-1;
+	}
+	if(todo==-1||todo==1){
+		show_S_TplDiv(true);
+	}else{
+		show_S_TplDiv(false);
+	}
+	
+	NUM=upfile_S_PicNumId;//+2;
+	document.getElementById("select_S_Tyls").options[NUM].selected = true;
+
+}
+show_S_MorePic()
+
+function select_S_Tpl(selObj){
+	n=selObj.selectedIndex;
+	value=selObj.options[n].value
+	if(value=='-2'){
+		window.open("index.php?lfj=template&job=maketpl2&filepath=side_sort/$timestamp.htm&filecode=side_sort/0.htm");
+		return ;
+	}
+	if(n==1){
+		//makenew();
+	}
+	if(n<2){
+		//return;
+	}
+	upfile_S_PicNumId=n;//-2;
+	show_S_TplDiv(true);
+}
+
+function show_S_TplDiv(t){
+	get_obj("upfile__S_PicNum").innerHTML="<font color=red>"+(upfile_S_PicNumId+1)+"</font>/"+Img_S_Links.length;
+	get_obj("upfile_s_PicUrl").src=get_obj("show_S_PicID").href=Img_S_Links[upfile_S_PicNumId];
+	get_obj("upfile_s_PicUrl").alt=Img_S_Title[upfile_S_PicNumId];
+	
+	if(t==true){
+		arr=Img_S_Links[upfile_S_PicNumId].split('template/default/');
+		arr2=arr[1].split('.jpg');
+		get_obj('List_S_ShowType').value=arr2[0];
+	}
+}
+
+function load_S_tpl(){
+	for(var i=0;i<Img_S_Links.length;i++){
+		arr=Img_S_Links[i].split('template/default/');
+		arr2=arr[1].split('.jpg');
+		if(get_obj("List_S_ShowType").value==arr2[0]){
+			upfile_S_PicNumId=i;
+		}
+	}
+	NUM=upfile_S_PicNumId;//+2;
+	document.getElementById("select_S_Tyls").options[NUM].selected = true;
+	show_S_TplDiv();
+}
+load_S_tpl();
+//-->
+</SCRIPT>
+      </td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>列表页,最终页的最新图片,热门标题,推荐标题显示样式<span help=1><br>
+        模板存放在此目录/template/default/side_tpl/<br>
+        你可以参考现有的模板做更多的样式模板放在此目录即可.<br>
+        或者你可以到官方站下载更多的资源,<a href="http://www.qibosoft.com/downdata.php?job=side_tpl" target="_blank"><font color="#FF0000">下载</font></a></span></td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input type="hidden" name="webdbs[SideTitleStyle]" id="ListShowType" value="$webdb[SideTitleStyle]">
+        $getLabelTpl 
+        <SCRIPT LANGUAGE="JavaScript">
+<!--
+var upfile_PicNumId=0;
+
+function show_MorePic(todo){
+	if(todo==1){
+		upfile_PicNumId++;
+	}else if(todo==-1){
+		upfile_PicNumId--;
+	}
+	if(upfile_PicNumId<0){
+		alert("已经是第一个了!");
+		upfile_PicNumId=0;
+	}
+	if( upfile_PicNumId>(ImgLinks.length-1) ){
+		alert("已经是最后一个了!");
+		upfile_PicNumId=ImgLinks.length-1;
+	}
+	if(todo==-1||todo==1){
+		showTplDiv(true);
+	}else{
+		showTplDiv(false);
+	}
+	
+	NUM=upfile_PicNumId;//+2;
+	document.getElementById("selectTyls").options[NUM].selected = true;
+
+}
+show_MorePic()
+
+function selectTpl(selObj){
+	n=selObj.selectedIndex;
+	value=selObj.options[n].value
+	if(value=='-2'){
+		window.open("index.php?lfj=template&job=maketpl2&filepath=side_tpl/$timestamp.htm&filecode=side_tpl/0.htm");
+		return ;
+	}
+	if(n==1){
+		//makenew();
+	}
+	if(n<2){
+		//return;
+	}
+	upfile_PicNumId=n;//-2;
+	showTplDiv(true);
+}
+
+function showTplDiv(t){
+	get_obj("upfile_PicNum").innerHTML="<font color=red>"+(upfile_PicNumId+1)+"</font>/"+ImgLinks.length;
+	get_obj("upfile_PicUrl").src=get_obj("showPicID").href=ImgLinks[upfile_PicNumId];
+	get_obj("upfile_PicUrl").alt=ImgTitle[upfile_PicNumId];
+	
+	if(t==true){
+		arr=ImgLinks[upfile_PicNumId].split('template/default/');
+		arr2=arr[1].split('.jpg');
+		get_obj('ListShowType').value=arr2[0];
+	}
+}
+
+function loadtpl(){
+	for(var i=0;i<ImgLinks.length;i++){
+		arr=ImgLinks[i].split('template/default/');
+		arr2=arr[1].split('.jpg');
+		if(get_obj("ListShowType").value==arr2[0]){
+			upfile_PicNumId=i;
+		}
+	}
+	NUM=upfile_PicNumId;//+2;
+	document.getElementById("selectTyls").options[NUM].selected = true;
+	showTplDiv();
+}
+loadtpl();
+//-->
+</SCRIPT>
+      </td>
+    </tr>
+    <tr> 
+      <td bgcolor='#FFFFFF'> 
+        <div align="left">列表页,最终页的最新图片,热门标题,推荐标题显示设置</div>
+      </td>
+      <td bgcolor='#FFFFFF'> 几行: 
+        <input type="text" size="10" name="webdbs[JsListRows]" value="$webdb[JsListRows]">
+        <br>
+        每行多少个字符 
+        <input type="text" size="10" name="webdbs[JsListLeng]" value="$webdb[JsListLeng]">
+        <br>
+        一个汉字相当于两个字符</td>
+    </tr>
+    <tr> 
+      <td bgcolor='#FFFFFF'>列表页为大分类时.显示每个子栏目的标题设置</td>
+      <td bgcolor='#FFFFFF'>几行: 
+        <input type="text" size="10" name="webdbs[ListSonRows]" value="$webdb[ListSonRows]">
+        <br>
+        每行多少个字符 
+        <input type="text" size="10" name="webdbs[ListSonLeng]" value="$webdb[ListSonLeng]">
+        <br>
+        一个汉字相当于两个字符</td>
+    </tr>
+    <tr> 
+      <td bgcolor='#FFFFFF'>列表页,相关栏目,一行显示几个子栏目名称</td>
+      <td bgcolor='#FFFFFF'> 
+        <input type="text" size="2" name="webdbs[Listsortnameline]" value="$webdb[Listsortnameline]">
+        个</td>
+    </tr>
+    <tr> 
+      <td bgcolor='#FFFFFF'>列表页每个标题显示多少个字节</td>
+      <td bgcolor='#FFFFFF'> 
+        <input type="text" size="5" name="webdbs[ListLeng]" value="$webdb[ListLeng]">
+        默认50个,一个汉字相当于两个字节</td>
+    </tr>
+    <!--
+    <tr> 
+      <td bgcolor='#FFFFFF' height="15">列表页的图片主题显示几张</td>
+      <td bgcolor='#FFFFFF' height="15"> 
+        <input type="text" size="5" name="webdbs[listPicRows]" value="$webdb[listPicRows]">
+        默认4张,有的风格不一定生效</td>
+    </tr>-->
+    <tr> 
+      <td bgcolor='#FFFFFF' height="16">如果栏目有介绍或LOGO是否在列表页显示:</td>
+      <td bgcolor='#FFFFFF' height="16"> 
+        <input type="radio" name="webdbs[showsortlogo]" value="1" $showsortlogo[1]>
+        显示 
+        <input type="radio" name="webdbs[showsortlogo]" value="0" $showsortlogo[0]>
+        不显示 </td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>投稿注意事项:</td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> <iframe id="eWebEditor1" name="eWebEditor1"  src="ewebeditor/ewebeditor.php?id=PostNotice&style=standard&etype=1" frameborder="0" scrolling="no" width="450" height="150"></iframe> 
+        <input name="webdbs[PostNotice]" type="hidden" id="PostNotice" value='$webdb[PostNotice]'>
+      </td>
+    </tr>
+    <tr> 
+      <td bgcolor='#FFFFFF' height="16">列表页的最新,最新是否使用JS调用:</td>
+      <td bgcolor='#FFFFFF' height="16"> 
+        <input type="radio" name="webdbs[ListPageTitle_nojs]" value="1" $ListPageTitle_nojs[1]>
+        不使用JS(不推荐,影响网页打开速度) 
+        <input type="radio" name="webdbs[ListPageTitle_nojs]" value="0" $ListPageTitle_nojs[0]>
+        使用JS(推荐使用) </td>
+    </tr>
+    <tr> 
+      <td width='26%' bgcolor='#FFFFFF'>&nbsp;</td>
+      <td bgcolor='#FFFFFF' width="74%"> 
+        <input    type='submit' name='w' value='保存设置'>
+      </td>
+    </tr>
+  </form>
+</table>
+<table width="100%" cellspacing="1" cellpadding="3"  class="tablewidth">
+  <tr  class="head" align="left"> 
+    <td> <font color="#FFFFFF">说明:</font></td>
+  </tr>
+  <tr bgcolor='#FFFFFF'> 
+    <td align="left"> 以上设置对某些风格来说,不一定生效,做风格的时候,只有严格依照以上的参数,才会生效.</td>
+  </tr>
+</table>
+<!--
+EOT;
+?>
+-->

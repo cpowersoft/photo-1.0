@@ -1,0 +1,11 @@
+<?php
+unset($Fid_db);
+$Fid_db[1][2]='美女图片';
+		$Fid_db[name][2]='美女图片';
+		$Fid_db[0][1]='图库中心';
+		$Fid_db[name][1]='图库中心';
+		$Fid_db[1][4]='热点图片';
+		$Fid_db[name][4]='热点图片';
+		$Fid_db[1][5]='风景图片';
+		$Fid_db[name][5]='风景图片';
+		?>

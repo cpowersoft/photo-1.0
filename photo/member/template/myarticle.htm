@@ -1,0 +1,141 @@
+<!--
+<?php
+print <<<EOT
+--> 
+<style type="text/css">
+<!--
+.dragTable{
+	margin-top:5px;	
+}
+.dragTable a{
+	color:#333;
+}
+.dragTable .trh td{
+	height:25px;
+	vertical-align:middle;
+	text-align:center;
+	background:#DDD;
+	border-right:#FFF solid 1px;
+}
+.dragTable .trc td{
+	padding:5px;
+	border-bottom:#DDD dotted 1px;	
+	text-align:center;
+	color:#666;
+}
+.dragTable .trc .td1{
+	width:50%;
+	text-align:left;
+	color:blue;	
+}
+.dragTable .trc .td2{
+	width:8%;	
+}
+.dragTable .trc .td3{
+	width:10%;	
+}
+.dragTable .trc .td3 a{
+	color:#f60	
+}
+.dragTable .trc .td4{
+	width:10%;	
+}
+.dragTable .trc .td5{
+	width:10%;	
+}
+.dragTable .choose{
+	padding:8px 0 5px 10px;
+}
+.dragTable .page{
+	padding:8px;
+	text-align:center;
+}
+.dragTable .page a{
+	border:#DDD solid 1px;
+	padding:3px 5px 2px 5px;
+}
+-->
+</style>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="dragTable" >
+  <tr>
+  	<td class="head">内容管理</td>
+  </tr>
+  <tr>
+  	<td class="middle">
+    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+   <tr> 
+              <td colspan="5">
+			  
+<style type="text/css">
+.btable{
+	width:185px;
+	float:left;
+	border:1px solid #ccc;
+	height:270px;
+	margin:8px 5px 5px 2px;
+}
+.btable .tt{
+	padding-left:8px;
+	line-height:21px;
+}
+.btable .pic{
+	padding-top:5px;
+}
+.btable .title a{
+	font-weight:bold;
+}
+</style>
+			
+<!--
+EOT;
+foreach($listdb AS $key=>$rs){
+$rs[title]=get_word($rs[title],26);
+$yz3 = $rs[yz]==3 ? '<font color="red">(待发布)</font>' : '' ;
+print <<<EOT
+-->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="btable">
+          <tr> 
+            <td align="center" class="pic"><a href="$Murl/bencandy.php?fid=$rs[fid]&aid=$rs[aid]"  style="color:$rs[titlecolor];" target="_blank"><img src="$rs[picurl]" width=160 height=120 border="0"></a></td>
+          </tr>
+          <tr>
+                  <td class="tt title"><a href="$Mdomain/bencandy.php?fid=$rs[fid]&id=$rs[aid]"  style="color:$rs[titlecolor];" target="_blank"><br>
+              $rs[title]</a>$yz3 </td>
+          </tr>
+          <tr> 
+            <td class="tt">所在栏目：<a href="$Murl/list.php?fid=$rs[fid]" target="_blank">$rs[fname]</a></td>
+          </tr>
+          
+          <tr> 
+            <td class="tt">ID/浏览/评论：{$rs[aid]}/$rs[hits]/<a href="$admin_path&file=comment&job=list&aid=$rs[aid]">$rs[comments]</a></td>
+          </tr>
+          <tr> 
+            <td class="tt">发表日期：$rs[posttime]</td>
+          </tr>
+          <tr> 
+                  <td class="tt">状态:$rs[state]/$rs[levels]</td>
+          </tr>
+          <tr> 
+                  
+                <td class="tt">操作： <a href="post.php?job=manage&aid=$rs[aid]"><img alt="修改" src="$webdb[www_url]/member/images/post_icon.gif" width="11" height="11"></a> 
+ 
+                  <a onClick="return confirm('你确实要删除本文吗?')" href="?job=$job&do=del&id=$rs[aid]&mid=$mid&only=$only"><img alt="删除" src="$webdb[www_url]/member/images/del_icon2.gif" width="13" height="13"></a></td>
+          </tr>
+        </table>
+        <!--
+EOT;
+}print <<<EOT
+-->
+			  
+			  </td>
+          </tr>
+		  <tr> 
+              <td colspan="5" class="page">$showpage</td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+</table>
+<!--
+EOT;
+?>
+-->

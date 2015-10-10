@@ -1,0 +1,160 @@
+<!--
+<?php
+$backdb[subject] || ($backdb[subject]="没有了") && ($backdb[click]="return false;");
+$nextdb[subject] || ($nextdb[subject]="没有了") && ($nextdb[click]="return false;");
+$unsetdb[]=$rsdb[photourl];	//不需要再显示
+print <<<EOT
+-->
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="MainTable">
+  <tr> 
+    <td width="70%" height="393" valign="top" class="Main"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="dragTable viewcontent" id="viewphoto">
+        <tr> 
+          <td class="middle" valign="top"> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" bordercolor="#FFFFFF" bgcolor="#1C1C1D">
+              <tr> 
+                <td width="30%" align="left" class="a1" style="padding-top:12px; padding-left:30px; color:#ECECEC; font-size:20px;">$rsdb[title]</td>
+                <td width="70%" aclass="a1" style="padding-top:16px; color:#999; ">&nbsp;{$rsdb[posttime]}</td>
+            
+              </tr>
+              <tr>
+              <td colspan="2" style="padding:8px; padding-left:30px; color:#999;">{$rsdb[content]}</td>
+              
+              </tr>
+              <tr> 
+                <td colspan="2" align="left" bgcolor="#1C1C1D" class="a1" style="">  
+<LINK href="$Mdomain/images/default/photo.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+<!--
+#wdsPhoto .prev_1 .pic_1_prev{
+	cursor:url($Mdomain/images/default/bg11.cur),pointer;
+}
+#wdsPhoto .next_1 .pic_1_next{
+	cursor:url($Mdomain/images/default/bg12.cur),pointer;
+}
+-->
+</style>
+<SCRIPT language=JavaScript src="$Mdomain/images/default/photo.js" type="text/javascript"></SCRIPT>
+
+  
+<DIV id="wdsPhoto">
+  <DIV class="main" id="main5"></DIV>
+  
+    <div class="prev_1">
+     <a class="pic_1_prev"  id="prev" href="javascript:;"><img src="$Mdomain/images/default/p.png" /></a>
+    </div>
+    
+    <div class="next_1"> 
+     <a class="pic_1_next" id="next" href="javascript:;"><img src="$Mdomain/images/default/p.png" /></a>
+    </div>
+    
+    <DIV class="top">
+       <div class="top_1">
+        <a class="pic_1"style="color:#FFF;" href="bencandy.php?fid=$backdb[fid]&id=$backdb[aid]" onclick="$backdb[click]" title="$backdb[title]"><img height="74" width="100" src="$backdb[picurl]" onerror="this.src='$Mdomain/images/default/nopic.gif'" /><span><<上一图集</span></a>
+       </div>
+        
+        <A class="prev"></A>
+        <DIV class="thum" id="thum"></DIV>
+        <A class="next"></A>
+        
+        <div class="top_2">
+        <a class="pic_1 "style="color:#FFF;" href="bencandy.php?fid=$nextdb[fid]&id=$nextdb[aid]" onclick="$nextdb[click]" title="$nextdb[title]"><img height="74" width="100" src="$nextdb[picurl]" onerror="this.src='$Mdomain/images/default/nopic.gif'" /><span>下一图集>></span></a>
+        </div>
+    </DIV>
+</DIV>
+            
+ 
+ 
+            
+                </td>
+              </tr>
+            </table>
+            
+          </td>
+        </tr>
+        <tr> 
+          <td class="foot"> 
+            <h3 class="L"></h3>
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+      </table><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="dragTable">
+        <tr> 
+          <td class="head"> 
+            <h3 class="L"></h3>
+            <span class="TAG">相关信息</span> 
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+        <tr> 
+          <td class="middle" valign="top"> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="2">
+              
+              <tr> 
+                <td width="60">浏览人次:</td>
+                <td><font id="hits">{$rsdb[hits]}</font></td>
+              </tr>
+              <tr> 
+                <td width="60">发 布 者:</td>
+                <td>{$rsdb[username]} </td>
+              </tr>
+              <tr> 
+                <td width="60">发布日期:</td>
+                <td>{$rsdb[posttime]}</td>
+              </tr> 
+               
+            </table>
+          </td>
+        </tr>
+        <tr> 
+          <td class="foot"> 
+            <h3 class="L"></h3>
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+      </table>
+      
+      <!--include
+EOT;
+if($webdb[showComment] && $fidDB[allowcomment] && !$rsdb[forbidcomment]){@include(html("bencandy_tpl/comment"));}print <<<EOT
+include--></td>
+    
+  </tr>
+</table>
+
+
+<!--
+EOT;
+$photocode='';
+foreach($Mrsdb[photourl][url] AS $key=>$url){
+	$photocode.="['$url',''],";
+}
+print <<<EOT
+-->
+<SCRIPT type="text/javascript">
+var c={
+    main:'main5',//Main Image Frame
+    thum:'thum',
+    prev:'prev',
+    next:'next',
+
+
+    interval:3000,
+    timeout:10000,//超时设置
+
+    data:[
+        {$photocode}
+    ]
+};
+
+
+if('object'!=typeof c.data[c.data.length-1])c.data.splice(c.data.length-1,1);
+var im=new RollingImages(c);
+//im.stop();
+im.start();
+</SCRIPT>
+
+<!--
+EOT;
+?>
+-->

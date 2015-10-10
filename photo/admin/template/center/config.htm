@@ -1,0 +1,164 @@
+<!--
+<?php
+print <<<EOT
+--> 
+<table width='100%' cellspacing='1' cellpadding='3' class="tablewidth">
+  <form name="form1" method="post" action="$admin_path&action=$job">
+    <tr class="head"> 
+      <td colspan='2'> 
+        <div align='center'>参数设置</div>
+      </td>
+    </tr>
+    <tr> 
+      <td width='26%' bgcolor='#FFFFFF'> 
+        <div align="left">模块名称:</div>
+      </td>
+      <td bgcolor='#FFFFFF' width="74%"> 
+        <input    type='text' name='webdbs[Info_webname]' size='50' value='$webdb[Info_webname]'>
+      </td>
+    </tr>
+    <tr> 
+      <td width='26%' bgcolor='#FFFFFF'> 
+        <div align="left">二级域名:<span help=1>(注意:填写二级域名前,必须要先把二级域名绑定到此频道的目录,否则前台会访问不了。<br>当然，你有需要的话，可以把这个频道设置为网站的默认主页，此时这里就输入www.XXX.com这样的一级域名，而网站核心设置那里就相反的随意设置一个二级域名即可)</span></div>
+      </td>
+      <td bgcolor='#FFFFFF' width="74%"> 
+        <input    type='text' name='webdbs[Info_weburl]' size='50' value='$webdb[Info_weburl]'>(不能乱写，必须先把域名绑定到当前频道所在目录)
+      </td>
+    </tr>
+    <tr> 
+      <td width='26%' bgcolor='#FFFFFF'>模块开放与否:</td>
+      <td bgcolor='#FFFFFF' width="74%"> 
+        <input type="radio" name="webdbs[module_close]" value="1" $module_close[1]>
+        关闭 
+        <input type="radio" name="webdbs[module_close]" value="0" $module_close[0]>
+        开放</td>
+    </tr>
+    <tr> 
+      <td width='22%' bgcolor='#FFFFFF'>当前使用的数据表前缀:</td>
+      <td bgcolor='#FFFFFF' width="78%"> 
+        <input type="text" name="webdbs[module_pre]" value="$webdb[module_pre]" readonly size="8">
+        (不可修改,仅供查看)</td>
+    </tr>
+    <tr> 
+      <td width='26%' bgcolor='#FFFFFF'> 
+        <div align="left">title名称:</div>
+      </td>
+      <td bgcolor='#FFFFFF' width="74%"> 
+        <input    type='text' name='webdbs[Info_titleName]' size='20' value='$webdb[Info_titleName]'>
+      </td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>内容里的附件是否按日期划分目录：<span help=1>如果你的附件太多的话.就有必要按日期划分目录,以提高服务器的磁盘效率.如果单个栏目的附件少于3000个的话,就没必要划分.</span></td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input type="radio" name="webdbs[ArticleDownloadDirTime]" value="0" $ArticleDownloadDirTime[0]>
+        不划分 
+        <input type="radio" name="webdbs[ArticleDownloadDirTime]" value="Ym" $ArticleDownloadDirTime[Ym]>
+        每月划分 
+        <input type="radio" name="webdbs[ArticleDownloadDirTime]" value="YW" $ArticleDownloadDirTime[YW]>
+        每周划分 
+        <input type="radio" name="webdbs[ArticleDownloadDirTime]" value="Yd" $ArticleDownloadDirTime[Yd]>
+        每天划分 </td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>用户发表内容时,如果大于此尺寸的图片将自动缩小(单位像素): <span help=1>宽与高必须同时设置才生效.如果你不想自动缩小的话,就把宽与高留空.如果你的网站很多用户上传数码相片的话,就有必要自动缩小用户上传的图片.</span> 
+      </td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 宽: 
+        <input type="text" name="webdbs[ArticlePicWidth]" size="4" value="$webdb[ArticlePicWidth]">
+        高: 
+        <input type="text" name="webdbs[ArticlePicHeight]" size="4" value="$webdb[ArticlePicHeight]">
+      </td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>未审核的内容是否允许浏览:</td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input type="radio" name="webdbs[viewNoPassArticle]" value="1" $viewNoPassArticle[1]>
+        允许 
+        <input type="radio" name="webdbs[viewNoPassArticle]" value="0" $viewNoPassArticle[0]>
+        不允许 </td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>新发表时,重复(雷同)标题是否禁止发表:</td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input type="radio" name="webdbs[ForbidRepeatTitle]" value="1" $ForbidRepeatTitle[1]>
+        禁止重复 
+        <input type="radio" name="webdbs[ForbidRepeatTitle]" value="0" $ForbidRepeatTitle[0]>
+        允许重复 </td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>内容缩略图不符合比例时,是否用白色填充:<span help=1>截取部分图片,存在一个问题就是,有可能截取到半个人头;而按比例缩小的话,就会使用白色填充,一般推荐使用此方法</span></td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input type="radio" name="webdbs[autoCutSmallPic]" value="1" $autoCutSmallPic[1]>
+        截取部分图片(不推荐) 
+        <input type="radio" name="webdbs[autoCutSmallPic]" value="0" $autoCutSmallPic[0]>
+        按比例缩小后用白色填充(推荐)</td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>新发表内容时是否自动获取内容标题作为关键字:<span help=1><br>
+        (只有当用户没有设置关键字才会自动提取,否则不做处理.有极少部分服务器可能不支持,设置后图片发表不成功,因为设置的内存太小.) </span></td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input type="radio" name="webdbs[autoGetKeyword]" value="1" $autoGetKeyword[1]>
+        是 
+        <input type="radio" name="webdbs[autoGetKeyword]" value="0" $autoGetKeyword[0]>
+        否</td>
+    </tr>
+    
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>推荐为精华可得{$webdb[MoneyName]}:<span help=1>注意:取消推荐或删除的话,都要扣除对应的积分,防止作弊现象</span></td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input  class=mmcinb  type='text' size='5' value='$webdb[comArticleMoney]' name='webdbs[comArticleMoney]'>
+        $webdb[MoneyDW]</td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>新发表可得{$webdb[MoneyName]}:<span help=1>注意:只有审核通过的内容,才能有积分,也就是说,如果用户发表的内容是自动通过审核的,那么将自动获取相应的积分,如果是管理员人工审核的话,只有审核的时候,才奖励积分,而发表之后,没审核前,是不奖励积分的.防止作弊情况.另外还有一点要注意的是:取消审核的话,要扣除对应的积分</span></td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input  class=mmcinb  type='text' size='5' value='$webdb[postArticleMoney]' name='webdbs[postArticleMoney]'>
+        $webdb[MoneyDW]</td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>删除主题扣除{$webdb[MoneyName]}:<span help=1>发表时,如果是人工审核的话,这里可以自由设置(建议为0)，而不易出现作弊现象，因为没审核的内容是不会受到奖励的。新发表内容，自动通过审核的话,如果不使用回收站,建议跟新发表时扣除的对应相等,这样才好防止作弊现象.</span><br>
+        扣除要写负数,如-2 </td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input  class=mmcinb  type='text' size='5' value='$webdb[deleteArticleMoney]' name='webdbs[deleteArticleMoney]'>
+        $webdb[MoneyDW]</td>
+    </tr>
+    <tr> 
+      <td width='48%' bgcolor='#FFFFFF'>是否使用回收站功能:<span help=1>使用回收站的话,用户删除的内容将自动放进回收站,不会彻底删除,管理员还可以复原.如果不使用回收站的话,所有删除操作都将一次性清空,不可复原.</span></td>
+      <td colspan='2' bgcolor='#FFFFFF' width="52%"> 
+        <input type="radio" name="webdbs[ForceDel]" value="1" $ForceDel[1]>
+        不使用回收站 
+        <input type="radio" name="webdbs[ForceDel]" value="0" $ForceDel[0]>
+        使用回收站</td>
+    </tr>
+    
+    <tr> 
+      <td bgcolor='#FFFFFF' height="8">本频道是否独立头部与尾部模板:<br>
+        <font color="#0000FF">注意：</font>头部与尾部模板，请放在本频道的template目录下，右边的输入框输入类似如下路径<br>
+        /template/***/head.htm 星号换成你实际的目录名,如果留空，就使用统一的风格</td>
+      <td bgcolor='#FFFFFF' height="8"> 
+        <input type="radio" name="webdbs[IF_Private_tpl]" value="1" $IF_Private_tpl[1]>
+        首页独立 
+        <input type="radio" name="webdbs[IF_Private_tpl]" value="2" $IF_Private_tpl[2]>
+        首页、列表页独立 
+        <input type="radio" name="webdbs[IF_Private_tpl]" value="3" $IF_Private_tpl[3]>
+        首页、列表页、内容独立 
+        <input type="radio" name="webdbs[IF_Private_tpl]" value="0" $IF_Private_tpl[0]>
+        不独立头部与尾部模板 <br>
+        头部模板路径: 
+        <input type="text" size="50" name="webdbs[Private_tpl_head]" value="$webdb[Private_tpl_head]">
+        <br>
+        底部模板路径: 
+        <input type="text" size="50" name="webdbs[Private_tpl_foot]" value="$webdb[Private_tpl_foot]">
+      </td>
+    </tr>
+    <tr> 
+      <td width='26%' bgcolor='#FFFFFF'>&nbsp;</td>
+      <td bgcolor='#FFFFFF' width="74%"> 
+        <input    type='submit' name='w' value='保存设置'>
+      </td>
+    </tr>
+  </form>
+</table>
+<!--
+EOT;
+?>
+-->
